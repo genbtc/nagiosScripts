@@ -10,6 +10,6 @@
 // ==/UserScript==
 
 var script = document.createElement('script');
-script.id = 'AutoTrimps-script';
+script.id = 'Nagios-script';
 script.src = 'https://cdn.rawgit.com/genBTC/nagiosScripts/Critical20mAudioAlert.js';
 document.head.appendChild(script);
