@@ -1,3 +1,14 @@
+// ==UserScript==
+// @name Nagios Audio alerts
+// @version 1.0.2017-06-26
+// @author genBTC
+// @namespace https://github.com/genbtc/nagiosScripts/
+// @description This script will string and time match stuff and play audio files as alerts
+// @include https://10.0.0.3/your/Nagios/Page/AggregatePage/HasToBeThatPage/*
+// @grant none
+// @require https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js
+// ==/UserScript==
+
 var startupDelay = 1000;    //How long to wait for everything to load (in ms)
 var runInterval = 10000;      //How often to loop through logic (in ms) (also minimum time between different beeps)
 
