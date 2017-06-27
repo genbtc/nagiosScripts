@@ -26,6 +26,9 @@ function delayStart() {
 
 //Main:
 function mainLoop() {
+    //COMMENT THE FOLLOWING LINE OUT TO STOP AUDIO PLAYBACK TEST (11 sec after load)
+    console.log("Testing Audio-"); player.play();
+    
     //Grab all the columnar elements that correspond to being lit up by the statusCritical CSS style 
     var criticalClass = "statusCritical";    
     var getcritical = document.getElementsByClassName(criticalClass);
@@ -39,7 +42,8 @@ function mainLoop() {
     for (var i=0;i<criticalLines.length;i++) {
         var columns = criticalLines[i];
         var time = columns[5].innerHTML;
-        if (!time.includes("0d 2")) return;
+        //string check for "0h 2" aka the first time the alert crosses 20 minutes
+        if (!time.includes("0h 2")) return;
             // double check that the line has the word CRITICAL in column [4].
             // triple check to make sure we didnt already just alert on this, by checking the field we wrote.        
         if (columns[4].innerHTML.includes("CRITICAL") && !columns[3].innerHTML.includes("ALERTED!")) { 
