@@ -42,8 +42,8 @@ function mainLoop() {
     for (var i=0;i<criticalLines.length;i++) {
         var columns = criticalLines[i];
         var time = columns[5].innerHTML;
-        //string check for "0h 2" aka the first time the alert crosses 20 minutes
-        if (!time.includes("0h 2")) return;
+        //string check for "0d  0h 2" aka the first time the alert crosses 20 minutes
+        if (!time.includes("0d  0h 2")) return;
             // double check that the line has the word CRITICAL in column [4].
             // triple check to make sure we didnt already just alert on this, by checking the field we wrote.        
         if (columns[4].innerHTML.includes("CRITICAL") && !columns[3].innerHTML.includes("ALERTED!")) { 
