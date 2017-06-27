@@ -3,10 +3,9 @@
 // @version 1.0.2017-06-26
 // @author genBTC
 // @namespace https://github.com/genbtc/nagiosScripts/
-// @description This script will string and time match stuff and play audio files as alerts
+// @description This script will string and time match stuff and play audio files as alerts.Change the following line to match the webpage.
 // @match https://10.0.0.3/your/Nagios/Page/AggregatePage/HasToBeThatPage/index.php*
 // @grant none
-// @require https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js
 // ==/UserScript==
 
 var startupDelay = 1000;    //How long to wait for everything to load (in ms)
@@ -27,7 +26,7 @@ function delayStart() {
 //Main:
 function mainLoop() {
     //COMMENT THE FOLLOWING LINE OUT TO STOP AUDIO PLAYBACK TEST (11 sec after load)
-    console.log("Testing Audio-"); player.play();
+    //console.log("Testing Audio-"); player.play();
     
     //Grab all the columnar elements that correspond to being lit up by the statusCritical CSS style 
     var criticalClass = "statusCritical";    
@@ -43,7 +42,7 @@ function mainLoop() {
         var columns = criticalLines[i];
         var time = columns[5].innerHTML;
         //string check for "0d  0h 2" aka the first time the alert crosses 20 minutes
-        if (!time.includes("0d  0h 2")) return;
+        if (!time.includes("0d  0h 2")) break;
             // double check that the line has the word CRITICAL in column [4].
             // triple check to make sure we didnt already just alert on this, by checking the field we wrote.        
         if (columns[4].innerHTML.includes("CRITICAL") && !columns[3].innerHTML.includes("ALERTED!")) { 
