@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name Nagios Audio alerts
-// @version 1.0.2017-06-26
+// @version 1.0.2017-06-27
 // @author genBTC
 // @namespace https://github.com/genbtc/nagiosScripts/
 // @description This script will string and time match stuff and play audio files as alerts.Change the following line to match the webpage.
@@ -9,12 +9,15 @@
 // ==/UserScript==
 
 var startupDelay = 1000;    //How long to wait for everything to load (in ms)
-var runInterval = 10000;      //How often to loop through logic (in ms) (also minimum time between different beeps)
+var runInterval = 60000;      //How often to loop through logic (in ms) (also minimum time between different beeps)
 
 //initialize player with sound
 var player = document.createElement('audio');
 player.src = 'https://dl.dropbox.com/u/7079101/coin.mp3';
 player.preload = 'auto';
+player.playOK = true;
+player.softPlay = function () { if (player.playOK) player.play(); };
+player.toggle = function () { player.playOK = !player.playOK; };
 
 //run the init, and the main Loop
 setTimeout(delayStart, startupDelay);
@@ -42,12 +45,11 @@ function mainLoop() {
         var columns = criticalLines[i];
         var time = columns[5].innerHTML;
         //string check for "0d  0h 2" aka the first time the alert crosses 20 minutes
-        if (!time.includes("0d  0h 2")) break;
             // double check that the line has the word CRITICAL in column [4].
-            // triple check to make sure we didnt already just alert on this, by checking the field we wrote.        
-        if (columns[4].innerHTML.includes("CRITICAL") && !columns[3].innerHTML.includes("ALERTED!")) { 
+                // triple check to make sure we didnt already just alert on this, by checking the field we wrote.        
+        if (time.includes("0d  0h 2") &&  columns[4].innerHTML.includes("CRITICAL") && !columns[3].innerHTML.includes("ALERTED!")) { 
             //play the audio.
-            player.play();
+            player.softPlay();
             // write some data to that blank field, to prove to both of us we alerted on it.
             columns[3].innerHTML = "ALERTED";
         }
